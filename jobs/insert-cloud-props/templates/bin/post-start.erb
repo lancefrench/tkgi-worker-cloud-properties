@@ -14,10 +14,10 @@ else
   # entry, under the cloud_properties hash.  Then output the entire contents of the merged first file |(.[0]).
 
   # Update the master_managed_identity to append accelerated networking
-  /var/vcap/packages/jq/bin/jq -s '.[0].vm_extensions[0].cloud_properties=(.[0].vm_extensions[0].cloud_properties * .[1]) | .[0]' /var/vcap/jobs/bosh-update-config/config/cloud-config.yml /var/vcap/jobs/insert-cloud-props/config/extras.json > /var/vcap/jobs/bosh-update-config/config/cloud-config.yml.new
+  /var/vcap/packages/jq/bin/jq -s '.[0].vm_extensions[0].cloud_properties=(.[0].vm_extensions[0].cloud_properties * .[1]) | .[0]' /var/vcap/jobs/bosh-update-config/config/cloud-config.yml /var/vcap/jobs/insert-cloud-props/config/extras.json > /var/vcap/jobs/bosh-update-config/config/cloud-config.yml.master
 
   # Update the worker_managed_identity to append accelerated networking
-  /var/vcap/packages/jq/bin/jq -s '.[0].vm_extensions[1].cloud_properties=(.[0].vm_extensions[1].cloud_properties * .[1]) | .[0]' /var/vcap/jobs/bosh-update-config/config/cloud-config.yml.new /var/vcap/jobs/insert-cloud-props/config/extras.json > /var/vcap/jobs/bosh-update-config/config/cloud-config.yml.new
+  /var/vcap/packages/jq/bin/jq -s '.[0].vm_extensions[1].cloud_properties=(.[0].vm_extensions[1].cloud_properties * .[1]) | .[0]' /var/vcap/jobs/bosh-update-config/config/cloud-config.yml.master /var/vcap/jobs/insert-cloud-props/config/extras.json > /var/vcap/jobs/bosh-update-config/config/cloud-config.yml.new
 
   # jq is a streaming CLI so we couldn't directly redirect the output into the source file, we needed to create
   # a new file.   we copy it over the original here.
